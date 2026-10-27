@@ -80,3 +80,48 @@ Then open `http://localhost:5000`.
 Project evidence is available in the [`screenshots`](screenshots/) folder:
 
 - `github-actions-pipeline
+
+## Automated Docker Deployment
+
+The `deploy.sh` script automates deployment of the latest Docker image from Docker Hub.
+
+It:
+1. Pulls the latest Docker image.
+2. Removes the previous container if it exists.
+3. Starts the container with automatic restart enabled.
+4. Checks the `/health` endpoint.
+5. Displays container logs and exits with an error if the health check fails.
+
+Run the script in an environment with Docker, Bash, and curl installed:
+
+```bash
+bash deploy.sh
+```
+
+## Monitoring and Troubleshooting
+
+Check running containers:
+
+```bash
+docker ps
+```
+
+View application logs:
+
+```bash
+docker logs cicd-app
+```
+
+Check application health:
+
+```bash
+curl http://localhost:5000/health
+```
+
+The application was tested in GitHub Codespaces. This is a temporary test environment, not a permanent public deployment.
+
+## Project Links
+
+- **GitHub repository:** https://github.com/sapnaahamed23-hub/cognevance_cicd-pipeline-automation
+- **GitHub Actions:** https://github.com/sapnaahamed23-hub/cognevance_cicd-pipeline-automation/actions
+- **Docker Hub image:** https://hub.docker.com/r/sapnaahamed/cicd-pipeline-automation

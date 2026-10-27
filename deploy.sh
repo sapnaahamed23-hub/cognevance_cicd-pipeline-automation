@@ -21,7 +21,12 @@ docker run -d \
 
 echo "Checking application health..."
 sleep 3
-curl --fail "http://localhost:$PORT/health"
+
+if ! curl --fail --silent --show-error "http://localhost:$PORT/health"; then
+  echo "ERROR: Health check failed." >&2
+  docker logs "$CONTAINER"
+  exit 1
+fi
 
 echo ""
 echo "Deployment completed successfully!"
